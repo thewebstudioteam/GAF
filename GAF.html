@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script> ```
+
+    <title>General Aluminium & Glazing | Premium Glazing Services</title>
+    <style>
+        :root {
+            --rust: #FF5733;
+            --rust-light: #ff7757;
+            --rust-dark: #cc4628;
+            --black: #141414;
+            --dark-gray: #222222;
+            --medium-gray: #333333;
+            --light-gray: #888888;
+            --lighter-gray: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--lighter-gray);
+            background-color: var(--black);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: -0.025em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light-gray);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--rust);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.8)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 87, 51, 0.15) 0%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--light-gray);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .accent-text {
+            color: var(--rust);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--rust);
+            color: var(--white);
+            border: 1px solid var(--rust);
+        }
+
+        .btn-primary:hover {
+            background: var(--rust-dark);
+            border-color: var(--rust-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--light-gray);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--white);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 2rem;
+            background: var(--dark-gray);
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title p {
+            color: var(--light-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--medium-gray);
+            padding: 3rem;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--rust);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 8rem 2rem;
+            background: var(--black);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(20, 20, 20, 0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay h4 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-overlay p {
+            color: var(--light-gray);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 2rem;
+            background: var(--medium-gray);
+        }
+
+        .contact-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark-gray);
+            border: 1px solid var(--light-gray);
+            border-radius: 3px;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--rust);
+            background: var(--medium-gray);
+        }
+
+        .form-input::placeholder {
+            color: var(--light-gray);
+        }
+
+        .contact-info {
+            padding: 2rem;
+            background: var(--dark-gray);
+            border-radius: 3px;
+        }
+
+        .contact-info h3 {
+            color: var(--white);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-method {
+            margin-bottom: 1.5rem;
+            color: var(--light-gray);
+        }
+
+        .contact-method strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--black);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">General Aluminium & Glazing</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#portfolio">Our Work</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content animate-fadeInUp">
+            <h1>Crafting Excellence in <span class="accent-text">Glass & Design</span></h1>
+            <p>Premium aluminium and glazing solutions that transform spaces through innovative design and expert
+                craftsmanship.</p>
+            <div class="button-group">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#portfolio" class="btn btn-secondary">View Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="section-title">
+            <h2>Our Expertise</h2>
+            <p>Discover our comprehensive range of professional glazing solutions</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Aluminium Glazing</h3>
+                <p>Custom aluminum window and door solutions that combine modern aesthetics with superior functionality.
+                </p>
+            </div>
+            <div class="service-card">
+                <h3>Frameless Concepts</h3>
+                <p>Elegant frameless glass installations for showers, balustrades, and architectural features.</p>
+            </div>
+            <div class="service-card">
+                <h3>Putty Glazing</h3>
+                <p>Traditional putty glazing services with meticulous attention to detail and lasting durability.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section" id="video">
+        <div class="section-title">
+            <h2>Watch Our Craftsmanship</h2>
+            <p>See our expertise in putty glazing in action</p>
+        </div>
+        <div class="video-container">
+            <iframe width="560" height="315"
+                src="https://www.youtube-nocookie.com/embed/f70RWwPDaVI?si=uXkHpZVCUQlQB__j"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <div class="section-title">
+            <h2>Featured Projects</h2>
+            <p>A showcase of our finest work and installations</p>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="/api/placeholder/800/600" alt="Project 1">
+                <div class="portfolio-overlay">
+                    <h4>Modern Office Complex</h4>
+                    <p>Full glazing installation</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="/api/placeholder/800/600" alt="Project 2">
+                <div class="portfolio-overlay">
+                    <h4>Luxury Residence</h4>
+                    <p>Frameless shower installation</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="/api/placeholder/800/600" alt="Project 3">
+                <div class="portfolio-overlay">
+                    <h4>Commercial Plaza</h4>
+                    <p>Structural glazing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section HTML -->
+    <section id="contact" class="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <p>Ready to start your project? Contact us for a free consultation</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-form">
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" class="form-input" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-input" rows="5" placeholder="Tell us about your project" required></textarea>
+                </div>
+                <button class="btn btn-primary" style="width: 100%;">Send Message</button>
+            </div>
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <div class="contact-method">
+                    <strong>Phone</strong>
+                    <a href="tel:27836677022">083 66 77 022</a>
+                </div>
+                <div class="contact-method">
+                    <strong>Email</strong>
+                    <a href="mailto:info@generalputtyglazing.co.za">info@generalputtyglazing.co.za</a>
+                </div>
+                <div class="contact-method">
+                    <strong>Operating Hours</strong>
+                    Monday - Friday: 8:00 AM - 5:00 PM<br>
+                    Saturday: By Appointment
+                </div>
+                <div class="contact-method">
+                    <strong>Service Areas</strong>
+                    Residential & Commercial Projects<br>
+                    Greater Johannesburg Area
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 General Aluminium & Glazing. All rights reserved.</p>
+    </footer>
