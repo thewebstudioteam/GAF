@@ -2012,3 +2012,67 @@ section,
     width: auto;
   }
 }
+
+/* Portfolio Show/Hide Functionality */
+.portfolio-item-hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+.portfolio-item-visible {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Ensure isotope respects our visibility classes */
+.isotope-container .portfolio-item-hidden {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.isotope-container .portfolio-item-visible {
+  display: block !important;
+  height: auto !important;
+}
+
+#portfolio-toggle-btn {
+  background-color: var(--accent-color) !important;
+  border: none !important;
+  color: white !important;
+  padding: 12px 30px !important;
+  border-radius: 5px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin: 20px auto !important;
+  cursor: pointer !important;
+}
+
+#portfolio-toggle-btn:hover {
+  background-color: #e6a83d !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+#portfolio-toggle-btn.show-less {
+  background-color: var(--accent-color) !important;
+}
+
+#portfolio-toggle-btn.show-less:hover {
+  background-color: #e6a83d !important;
+}

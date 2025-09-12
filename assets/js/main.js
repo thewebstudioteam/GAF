@@ -156,20 +156,14 @@
         filter: filter,
         sortBy: sort
       });
+      
+      // Store isotope instance globally for portfolio toggle
+      window.globalIsotope = initIsotope;
+      console.log('Isotope initialized with', initIsotope.filteredItems.length, 'visible items');
     });
 
-    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
-      filters.addEventListener('click', function() {
-        isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
-        this.classList.add('filter-active');
-        initIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-        if (typeof aosInit === 'function') {
-          aosInit();
-        }
-      }, false);
-    });
+    // Store filter buttons for portfolio toggle system
+    window.portfolioFilterButtons = isotopeItem.querySelectorAll('.isotope-filters li');
 
   });
 
@@ -217,5 +211,130 @@
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
+
+  /**
+   * Portfolio Show/Hide Functionality
+   */
+  function initPortfolioToggle() {
+    const toggleBtn = document.querySelector('#portfolio-toggle-btn');
+    const mainContainer = document.querySelector('.isotope-container');
+    
+    console.log('Portfolio toggle init - Toggle button found:', toggleBtn);
+    console.log('Portfolio toggle init - Main container found:', mainContainer);
+    
+    if (toggleBtn && mainContainer && window.globalIsotope) {
+      let isExpanded = false;
+      let currentFilter = '*'; // Track current filter
+      let maxVisibleItems = 5; // Maximum items to show initially
+      
+      // Store all items by category
+      const allItems = {
+        aluminium: Array.from(document.querySelectorAll('.portfolio-item.filter-aluminium')),
+        frameless: Array.from(document.querySelectorAll('.portfolio-item.filter-frameless')),
+        commercial: Array.from(document.querySelectorAll('.portfolio-item.filter-storefront'))
+      };
+      
+      // Function to create limited filter
+      function createLimitedFilter(baseFilter) {
+        if (baseFilter === '*') {
+          // For "All", show first 5 aluminium items
+          return '.filter-aluminium.show-initial';
+        } else if (baseFilter === '.filter-aluminium') {
+          return '.filter-aluminium.show-initial';
+        } else if (baseFilter === '.filter-frameless') {
+          return '.filter-frameless.show-initial';
+        } else if (baseFilter === '.filter-storefront') {
+          return '.filter-storefront.show-initial';
+        }
+        return baseFilter;
+      }
+      
+      // Function to show limited items
+      function showLimitedItems() {
+        const limitedFilter = createLimitedFilter(currentFilter);
+        
+        // Apply isotope filter with limited items
+        window.globalIsotope.arrange({
+          filter: limitedFilter
+        });
+        
+        // Update button text
+        toggleBtn.textContent = 'Show All Projects';
+        toggleBtn.classList.remove('show-less');
+        isExpanded = false;
+      }
+      
+      // Function to show all items
+      function showAllItems() {
+        // Apply isotope filter with all items for current category
+        window.globalIsotope.arrange({
+          filter: currentFilter
+        });
+        
+        // Update button text
+        toggleBtn.textContent = 'Show Less';
+        toggleBtn.classList.add('show-less');
+        isExpanded = true;
+      }
+      
+      // Function to apply filter and manage visibility
+      function applyFilter(filter) {
+        currentFilter = filter;
+        
+        // Update active filter button
+        window.portfolioFilterButtons.forEach(btn => {
+          btn.classList.remove('filter-active');
+          if (btn.getAttribute('data-filter') === filter) {
+            btn.classList.add('filter-active');
+          }
+        });
+        
+        // Show limited items for the new filter
+        showLimitedItems();
+        
+        // Reinitialize AOS
+        setTimeout(() => {
+          if (typeof aosInit === 'function') {
+            aosInit();
+          }
+        }, 100);
+      }
+      
+      // Initialize with first 5 aluminium items
+      applyFilter('*');
+      
+      // Toggle button click handler
+      toggleBtn.addEventListener('click', function() {
+        if (!isExpanded) {
+          showAllItems();
+        } else {
+          showLimitedItems();
+        }
+        
+        // Reinitialize AOS
+        setTimeout(() => {
+          if (typeof aosInit === 'function') {
+            aosInit();
+          }
+        }, 100);
+      });
+      
+      // Filter button click handlers
+      window.portfolioFilterButtons.forEach(function(filterBtn) {
+        filterBtn.addEventListener('click', function() {
+          const filter = this.getAttribute('data-filter');
+          applyFilter(filter);
+        });
+      });
+    } else {
+      console.log('Portfolio toggle init - Required elements not found');
+      console.log('Toggle button exists:', !!toggleBtn);
+      console.log('Main container exists:', !!mainContainer);
+      console.log('Global isotope exists:', !!window.globalIsotope);
+    }
+  }
+
+  // Initialize portfolio toggle when page loads
+  window.addEventListener('load', initPortfolioToggle);
 
 })();
