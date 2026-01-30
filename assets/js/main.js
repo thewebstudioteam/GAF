@@ -222,116 +222,147 @@
     console.log('Portfolio toggle init - Toggle button found:', toggleBtn);
     console.log('Portfolio toggle init - Main container found:', mainContainer);
     
-    if (toggleBtn && mainContainer && window.globalIsotope) {
-      let isExpanded = false;
-      let currentFilter = '*'; // Track current filter
-      let maxVisibleItems = 5; // Maximum items to show initially
-      
-      // Store all items by category
-      const allItems = {
-        aluminium: Array.from(document.querySelectorAll('.portfolio-item.filter-aluminium')),
-        frameless: Array.from(document.querySelectorAll('.portfolio-item.filter-frameless')),
-        commercial: Array.from(document.querySelectorAll('.portfolio-item.filter-storefront'))
-      };
-      
-      // Function to create limited filter
-      function createLimitedFilter(baseFilter) {
-        if (baseFilter === '*') {
-          // For "All", show first 5 aluminium items
-          return '.filter-aluminium.show-initial';
-        } else if (baseFilter === '.filter-aluminium') {
-          return '.filter-aluminium.show-initial';
-        } else if (baseFilter === '.filter-frameless') {
-          return '.filter-frameless.show-initial';
-        } else if (baseFilter === '.filter-storefront') {
-          return '.filter-storefront.show-initial';
+    // Wait for isotope to be ready if it's not yet
+    function waitForIsotope(callback, maxAttempts = 10) {
+      let attempts = 0;
+      const checkInterval = setInterval(() => {
+        attempts++;
+        if (window.globalIsotope || attempts >= maxAttempts) {
+          clearInterval(checkInterval);
+          callback();
         }
-        return baseFilter;
-      }
-      
-      // Function to show limited items
-      function showLimitedItems() {
-        const limitedFilter = createLimitedFilter(currentFilter);
-        
-        // Apply isotope filter with limited items
-        window.globalIsotope.arrange({
-          filter: limitedFilter
-        });
-        
-        // Update button text
-        toggleBtn.textContent = 'Show All Projects';
-        toggleBtn.classList.remove('show-less');
-        isExpanded = false;
-      }
-      
-      // Function to show all items
-      function showAllItems() {
-        // Apply isotope filter with all items for current category
-        window.globalIsotope.arrange({
-          filter: currentFilter
-        });
-        
-        // Update button text
-        toggleBtn.textContent = 'Show Less';
-        toggleBtn.classList.add('show-less');
-        isExpanded = true;
-      }
-      
-      // Function to apply filter and manage visibility
-      function applyFilter(filter) {
-        currentFilter = filter;
-        
-        // Update active filter button
-        window.portfolioFilterButtons.forEach(btn => {
-          btn.classList.remove('filter-active');
-          if (btn.getAttribute('data-filter') === filter) {
-            btn.classList.add('filter-active');
-          }
-        });
-        
-        // Show limited items for the new filter
-        showLimitedItems();
-        
-        // Reinitialize AOS
-        setTimeout(() => {
-          if (typeof aosInit === 'function') {
-            aosInit();
-          }
-        }, 100);
-      }
-      
-      // Initialize with first 5 aluminium items
-      applyFilter('*');
-      
-      // Toggle button click handler
-      toggleBtn.addEventListener('click', function() {
-        if (!isExpanded) {
-          showAllItems();
-        } else {
-          showLimitedItems();
-        }
-        
-        // Reinitialize AOS
-        setTimeout(() => {
-          if (typeof aosInit === 'function') {
-            aosInit();
-          }
-        }, 100);
-      });
-      
-      // Filter button click handlers
-      window.portfolioFilterButtons.forEach(function(filterBtn) {
-        filterBtn.addEventListener('click', function() {
-          const filter = this.getAttribute('data-filter');
-          applyFilter(filter);
-        });
-      });
-    } else {
-      console.log('Portfolio toggle init - Required elements not found');
-      console.log('Toggle button exists:', !!toggleBtn);
-      console.log('Main container exists:', !!mainContainer);
-      console.log('Global isotope exists:', !!window.globalIsotope);
+      }, 100);
     }
+    
+    waitForIsotope(() => {
+      if (toggleBtn && mainContainer && window.globalIsotope) {
+        let isExpanded = false;
+        let currentFilter = '*'; // Track current filter
+        let maxVisibleItems = 6; // Maximum items to show initially (mix from all categories)
+        
+        // Store all items by category
+        const allItems = {
+          aluminium: Array.from(document.querySelectorAll('.portfolio-item.filter-aluminium')),
+          frameless: Array.from(document.querySelectorAll('.portfolio-item.filter-frameless')),
+          commercial: Array.from(document.querySelectorAll('.portfolio-item.filter-storefront'))
+        };
+        
+        // Function to create limited filter
+        function createLimitedFilter(baseFilter) {
+          if (baseFilter === '*') {
+            // For "All", show only 5 items total (mix from different categories)
+            return '.show-initial-all';
+          } else if (baseFilter === '.filter-aluminium') {
+            return '.filter-aluminium.show-initial';
+          } else if (baseFilter === '.filter-frameless') {
+            return '.filter-frameless.show-initial';
+          } else if (baseFilter === '.filter-storefront') {
+            return '.filter-storefront.show-initial';
+          }
+          return baseFilter;
+        }
+      
+        // Function to show limited items
+        function showLimitedItems() {
+          const limitedFilter = createLimitedFilter(currentFilter);
+          
+          // Apply isotope filter with limited items
+          window.globalIsotope.arrange({
+            filter: limitedFilter
+          });
+          
+          // Update button text and ensure visibility
+          toggleBtn.textContent = 'Show More';
+          toggleBtn.classList.remove('show-less');
+          toggleBtn.style.display = 'inline-block';
+          toggleBtn.style.visibility = 'visible';
+          toggleBtn.style.opacity = '1';
+          isExpanded = false;
+        }
+      
+        // Function to show all items
+        function showAllItems() {
+          // Apply isotope filter with all items for current category
+          window.globalIsotope.arrange({
+            filter: currentFilter
+          });
+          
+          // Update button text and ensure visibility
+          toggleBtn.textContent = 'Show Less';
+          toggleBtn.classList.add('show-less');
+          toggleBtn.style.display = 'inline-block';
+          toggleBtn.style.visibility = 'visible';
+          toggleBtn.style.opacity = '1';
+          isExpanded = true;
+        }
+        
+        // Function to apply filter and manage visibility
+        function applyFilter(filter) {
+          currentFilter = filter;
+          
+          // Update active filter button
+          if (window.portfolioFilterButtons) {
+            window.portfolioFilterButtons.forEach(btn => {
+              btn.classList.remove('filter-active');
+              if (btn.getAttribute('data-filter') === filter) {
+                btn.classList.add('filter-active');
+              }
+            });
+          }
+          
+          // Show limited items for the new filter
+          showLimitedItems();
+          
+          // Reinitialize AOS
+          setTimeout(() => {
+            if (typeof aosInit === 'function') {
+              aosInit();
+            }
+          }, 100);
+        }
+        
+        // Initialize with mix from all categories
+        applyFilter('*');
+        
+        // Toggle button click handler
+        toggleBtn.addEventListener('click', function() {
+          if (!isExpanded) {
+            showAllItems();
+          } else {
+            showLimitedItems();
+          }
+          
+          // Reinitialize AOS
+          setTimeout(() => {
+            if (typeof aosInit === 'function') {
+              aosInit();
+            }
+          }, 100);
+        });
+        
+        // Filter button click handlers
+        if (window.portfolioFilterButtons) {
+          window.portfolioFilterButtons.forEach(function(filterBtn) {
+            filterBtn.addEventListener('click', function() {
+              const filter = this.getAttribute('data-filter');
+              applyFilter(filter);
+            });
+          });
+        }
+      } else {
+        console.log('Portfolio toggle init - Required elements not found');
+        console.log('Toggle button exists:', !!toggleBtn);
+        console.log('Main container exists:', !!mainContainer);
+        console.log('Global isotope exists:', !!window.globalIsotope);
+        
+        // Ensure button is visible even if isotope isn't ready
+        if (toggleBtn) {
+          toggleBtn.style.display = 'inline-block';
+          toggleBtn.style.visibility = 'visible';
+          toggleBtn.style.opacity = '1';
+        }
+      }
+    });
   }
 
   // Initialize portfolio toggle when page loads

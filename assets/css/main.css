@@ -1699,6 +1699,18 @@ section,
   font-size: 14px;
 }
 
+/* Facebook icon and Follow Us link hover effects */
+.contact .info-item a i.bi-facebook,
+.contact .info-item a h3 {
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.contact .info-item a:hover i.bi-facebook,
+.contact .info-item a:hover h3 {
+  color: var(--accent-color) !important;
+  opacity: 0.9;
+}
+
 .contact .php-email-form {
   height: 100%;
 }
@@ -2061,6 +2073,23 @@ section,
   opacity: 1 !important;
   margin: 20px auto !important;
   cursor: pointer !important;
+  width: auto !important;
+  min-width: 150px !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Ensure button is visible on mobile */
+@media (max-width: 768px) {
+  #portfolio-toggle-btn {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 20px auto !important;
+    width: auto !important;
+    min-width: 120px !important;
+    padding: 10px 25px !important;
+  }
 }
 
 #portfolio-toggle-btn:hover {
