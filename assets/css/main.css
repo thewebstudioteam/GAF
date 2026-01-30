@@ -1699,16 +1699,9 @@ section,
   font-size: 14px;
 }
 
-/* Facebook icon and Follow Us link hover effects */
-.contact .info-item a i.bi-facebook,
-.contact .info-item a h3 {
-  transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-.contact .info-item a:hover i.bi-facebook,
-.contact .info-item a:hover h3 {
-  color: var(--accent-color) !important;
-  opacity: 0.9;
+/* Facebook icon - no hover effects */
+.contact .info-item a i.bi-facebook {
+  color: white !important;
 }
 
 .contact .php-email-form {
@@ -2104,4 +2097,60 @@ section,
 
 #portfolio-toggle-btn.show-less:hover {
   background-color: #e6a83d !important;
+}
+
+/* SEO Content Block and Areas We Serve Section Styling */
+.section ul.list-unstyled li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .section ul.list-unstyled {
+    margin-bottom: 20px;
+  }
+}
+
+/* FAQ Accordion Styling */
+.accordion-item {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.accordion-button {
+  font-weight: 500;
+  color: var(--heading-color);
+  background-color: var(--surface-color);
+  border: none;
+  border-radius: 5px !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--accent-color);
+  background-color: var(--surface-color);
+  box-shadow: none;
+  border: none;
+}
+
+.accordion-button:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.accordion-button:hover {
+  border: none;
+}
+
+.accordion-body {
+  color: var(--default-color);
+  line-height: 1.8;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Trust section check icons - yellow */
+.section .list-unstyled li i.bi-check2-all {
+  color: var(--accent-color);
 }
